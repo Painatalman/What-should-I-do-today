@@ -1,24 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show MaterialApp, runApp, BuildContext, Widget, StatelessWidget;
 
-import 'package:its_flutter/CurrentIdea.dart' show CurrentIdea;
+import 'package:its_flutter/meta/info.dart' show MetaInfo;
+import 'package:its_flutter/pages/currentIdeaPage.dart';
 
 void main() => runApp(MyApp());
+
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String title = 'What should I do today?';
+    const appName = MetaInfo.appName;
 
     return MaterialApp(
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: Center(
-          child: CurrentIdea(),
-        ),
-      )
+      title: appName,
+      home: CurrentIdeaPage()
     );
   }
 }

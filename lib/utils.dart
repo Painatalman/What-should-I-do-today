@@ -5,3 +5,4 @@ getRandomItem(List<dynamic> list) {
 
   return list[nextIndex];
 }
+

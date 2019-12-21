@@ -3,7 +3,7 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 abstract class IdeaService {
-  Future<List<dynamic>> loadIdeas();
+  Future<List<String>> loadIdeas();
 }
 
 class JsonIdeaService implements IdeaService {
@@ -13,10 +13,9 @@ class JsonIdeaService implements IdeaService {
     this.source = fileSource;
   }
 
-  Future<List> loadIdeas() async {
+  Future<List<String>> loadIdeas() async {
     final String ideaData = await rootBundle.loadString(this.source);
 
-    final ideas = json.decode(ideaData);
-    return ideas['ideas'];
+    return List<String>.from(json.decode(ideaData)['ideas']);
   }
 }
