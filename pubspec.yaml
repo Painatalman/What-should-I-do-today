@@ -33,3 +33,5 @@ flutter:
   assets:
    - assets/data/ideas.json
 
+module:
+  androidX: true

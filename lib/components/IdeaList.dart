@@ -1,16 +1,9 @@
-import 'package:flutter/material.dart' show
-  BuildContext,
-  ListView,
-  ListTile,
-  StatelessWidget,
-  Text,
-  Widget;
+import 'package:flutter/material.dart' show BuildContext, ListTile, ListView, StatelessWidget, Text, Widget;
 
 class IdeaList extends StatelessWidget {
   final List<String> ideas;
-
   const IdeaList(this.ideas);
-  
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -18,7 +11,7 @@ class IdeaList extends StatelessWidget {
         (idea) => ListTile(
           title: Text(idea)
         )
-      ).toList(),
+      ).toList()
     );
   }
 }

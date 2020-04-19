@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  // background gradient
+  // TODO: replace tests with values actually used
   static Color blueSky = Color(0xFF068FFA);
   static Color greenLand = Color(0xFF89ED91);
 
@@ -11,3 +11,4 @@ class Palette {
 
   static Color blueSkyLighter = Color(0x10068FFA);
 }
+

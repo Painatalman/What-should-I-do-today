@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:its_flutter/IdeaService.dart';
 import 'package:its_flutter/components/IdeaList.dart';
 import 'package:its_flutter/components/Navbar.dart';
+import 'package:its_flutter/components/Preloader.dart';
 
-class IdeaListPageState extends State<IdeaListPage> {
-  static String defaultText = 'loading your next BIG idea';
-
+class IdeaListPageState extends State<IdeaListPage>
+    with SingleTickerProviderStateMixin {
   // the 'state' thing
   List<String> ideas;
   bool isLoading;
+  AnimationController _controller;
+  Animation<Offset> slideOut;
 
   loadIdeas() async {
     JsonIdeaService service = new JsonIdeaService('assets/data/ideas.json');
@@ -19,6 +21,8 @@ class IdeaListPageState extends State<IdeaListPage> {
       ideas = ideas;
       isLoading = false;
     });
+
+    _controller.forward();
   }
 
   @override
@@ -26,6 +30,19 @@ class IdeaListPageState extends State<IdeaListPage> {
     super.initState();
     ideas = [];
     isLoading = true;
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 2500), vsync: this);
+    slideOut = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset(
+        1.0,
+        0.0
+      ),
+      
+    ).animate(_controller);
+    slideOut.addListener(() {
+      setState(() {});
+    });
     this.loadIdeas();
   }
 
@@ -33,9 +50,17 @@ class IdeaListPageState extends State<IdeaListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Navbar(),
-      body:  Center(
-          child: isLoading ? Text("Loading ideas...") : IdeaList(ideas)
-        ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Center(child: IdeaList(ideas)),
+            SlideTransition(
+              position: slideOut,
+              child: Preloader(text:'Loading ideas...')
+            )
+          ]
+        )
+      )
     );
   }
 }
